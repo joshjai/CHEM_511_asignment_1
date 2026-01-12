@@ -1,0 +1,58 @@
+from machine import Pin
+import time
+
+led = Pin(12, Pin.OUT)
+
+button = Pin(14, Pin.IN, Pin.PULL_UP)
+
+current = time.time()
+
+while True: #keeps going forever
+    if button.value() == 0: 
+        led.value(0) #TTL logic high (binary)
+        elapsed = time.time() - current 
+        print(elapsed)
+        if elapsed >= 2:
+            print('Long')
+        else:
+            print('short')
+        time.sleep_ms(1000)        
+        
+    else:
+        led.value(0)
+        
+    time.sleep(0.1)
+
+
+
+
+from machine import Pin
+import time
+
+led = Pin(12, Pin.OUT)
+
+button = Pin(14, Pin.IN, Pin.PULL_UP)
+
+current = time.time()
+
+        #elapsed = time.time() - current 
+
+        #if elapsed2 >= 2:
+        #    print('Long')
+       # else:
+          #  print('short')
+
+while True:
+    while button.value() == 0: #keeps going forever
+        led.value(1)
+        elapsed = time.time() - current
+        if elapsed >= 2:
+                print('Long')
+        elif:
+                print('short')
+       
+       # else:
+        #    led.value(0)
+        
+        time.sleep_ms(1000)  
+  #  time.sleep(0.1)
