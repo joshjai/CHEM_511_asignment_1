@@ -9,7 +9,7 @@ current = time.time()
 
 while True: #keeps going forever
     if button.value() == 0: 
-        led.value(0) #TTL logic high (binary)
+        led.value(1) #TTL logic high (binary)
         elapsed = time.time() - current 
         print(elapsed)
         if elapsed >= 2:
