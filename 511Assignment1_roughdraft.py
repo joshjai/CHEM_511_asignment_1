@@ -36,5 +36,8 @@ while True: #keeps going forever
         
     #time.sleep(0.1)
  
-    
+    #resourcesused 
+    #https://www.circuits-diy.com/button-long-short-press-arduino-tutorial/#google_vignette 
+    #https://docs.micropython.org/en/latest/library/time.html 
+    #https://newbiely.com/tutorials/esp8266/esp8266-button-long-press-short-press
     
