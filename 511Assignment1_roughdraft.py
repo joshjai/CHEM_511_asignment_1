@@ -82,6 +82,9 @@ while True: #keeps going forever
         print(entered)
         if entered == password:
             print('Open Vault')
+            led.value(1) #Set led turn off
+            time.sleep_ms(600)
+            led.value(0)
             entered = []
         elif entered != password and len(entered) == 4:
             print('Wrong Password')
