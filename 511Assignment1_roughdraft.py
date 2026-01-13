@@ -73,12 +73,10 @@ while True: #keeps going forever
         if delta >= 500: #set long press
             press = 'L'
             entered.append(press)
-            print(press)
         
         else:
             press = 'S'
             entered.append(press)
-            print(press)
         print(entered)
         if entered == password:
             print('Open Vault')
