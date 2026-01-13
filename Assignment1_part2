@@ -1,0 +1,71 @@
+from machine import Pin
+import time
+
+led = Pin(12, Pin.OUT)
+
+button1 = Pin(14, Pin.IN, Pin.PULL_UP)
+
+button2 = Pin(27, Pin.IN, Pin.PULL_UP)
+
+
+start = 0 #make sure time is 0
+button_state = False #
+position = 0
+password = ['short left', 'long right', 'short right', 'long left']
+entered = []
+
+while True: #keeps going forever
+    if button1.value() == 0 and button_state == False: #button is being pressed
+        button_state = True #change state to true
+        position = 'Right'
+        start = time.ticks_ms() #start timer
+        led.value(1) #turns light on
+        
+    elif button2.value() == 0 and button_state == False: #button is being pressed
+        button_state = True #change state to true
+        position = 'Left'
+        start = time.ticks_ms() #start timer
+        led.value(1) #turns light on
+        
+    elif (button1.value() == 1 and position == 'Right' or button2.value() == 1 and position == 'Left') and button_state == True: # button not pressed     
+        button_state = False # change state to original 
+        led.value(0) # LED off 
+        end_time = time.ticks_ms() #release time
+    
+        
+        delta = time.ticks_diff(end_time, start) #change in time
+        if delta >= 500 and position == 'Right': #set long press
+            press = 'long right'
+            entered.append(press)
+        
+        elif delta < 500 and position == 'Right':
+            press = 'short right'
+            entered.append(press)
+        
+        elif delta >= 500 and position == 'Left':
+            press = 'long left'
+            entered.append(press)
+            
+        elif delta < 500 and position == 'Left':
+            press = 'short left'
+            entered.append(press)
+
+        print(entered)
+        if entered == password:
+            print('Open Vault')
+            led.value(1) #Set led turn off
+            time.sleep_ms(600)
+            led.value(0)
+            entered = []
+        elif entered != password and len(entered) == 4:
+            print('Wrong Password')
+            for x in range(5):
+                led.value(0) #Set led turn on
+                time.sleep_ms(100)
+                led.value(1) #Set led turn off
+                time.sleep_ms(100)
+            led.value(0)
+            entered = []
+        
+                            
+    time.sleep_ms(20)        
