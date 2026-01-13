@@ -24,7 +24,7 @@ while True: #keeps going forever
         
         
         delta = time.ticks_diff(end_time, start) #change in tme
-        if delta >= 1000: #set long press
+        if delta >= 500: #set long press
             print('Long')
         else:
             print('short')
