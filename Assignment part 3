@@ -1,0 +1,32 @@
+from machine import Pin, I2C, ADC 
+import i2c_lcd
+import time
+
+#setup
+
+i2c_device = I2C(0, scl=Pin(22), sda=Pin(23))
+lcd = i2c_lcd.I2cLcd(i2c_device, 0x27, 2, 16)
+led = Pin(21, Pin.OUT)
+
+lightSensor = ADC(Pin(34))
+lightSensor.ATTN_11DB
+
+
+while True:
+    lcd.clear()
+    reading = 4095 - lightSensor.read()
+    if reading < 600:
+        led.value(1)
+        lcd.move_to(0, 1)
+        lcd.putstr('light is on') 
+        
+    else:
+        led.value(0)
+        lcd.move_to(0, 1)
+        lcd.putstr('light is off')
+        
+    lcd.move_to(0, 0)
+    lcd.putstr('light: %d' % reading)        
+    
+    
+    time.sleep(0.5)
